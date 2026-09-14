@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Finder - Track Location</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body { height: 100%; margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        #map { height: 85%; width: 100%; }
+        .controls { height: 15%; display: flex; justify-content: center; align-items: center; background: #f8f9fa; }
+        .nav-button { padding: 14px 28px; font-size: 16px; font-weight: bold; background-color: #dc3545; color: white; text-decoration: none; border-radius: 6px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+    <div class="controls">
+        <a id="nav-link" class="nav-button" href="#" target="_blank">🚗 Start Directions to Car</a>
+    </div>
+
+    <script>
+        function initViewerMap() {
+            const params = new URLSearchParams(window.location.search);
+            const lat = parseFloat(params.get('lat'));
+            const lng = parseFloat(params.get('lng'));
+
+            if (!isNaN(lat) && !isNaN(lng)) {
+                const carLocation = { lat: lat, lng: lng };
+                
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 17,
+                    center: carLocation,
+                    mapTypeControl: false
+                });
+
+                // Uses classic, universal marker pin setup
+                new google.maps.Marker({
+                    position: carLocation,
+                    map: map,
+                    title: "Car Location"
+                });
+
+                document.getElementById('nav-link').href = `https://google.com{lat},${lng}`;
+            } else {
+                alert("No tracking coordinates were received.");
+            }
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkv39b6FOVEwHhhvOslU9SZ12_iu9931I&libraries=marker&callback=initViewerMap" async defer></script>
+</body>
+</html>
