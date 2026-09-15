@@ -27,7 +27,7 @@
                 const carLocation = { lat: lat, lng: lng };
                 
                 const map = new google.maps.Map(document.getElementById("map"), {
-                    zoom: 17,
+                    zoom: 20,
                     center: carLocation,
                     mapTypeControl: false
                 });
@@ -39,7 +39,7 @@
                     title: "Car Location"
                 });
 
-                document.getElementById('nav-link').href = `https://maps.google.com/?q=${lat},${lng}&z=18`;
+                document.getElementById('nav-link').href = `https://google.com/?q=${lat},${lng}&zoom=18`;
             } else {
                 alert("No tracking coordinates were received.");
             }
